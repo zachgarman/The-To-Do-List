@@ -9,7 +9,6 @@ h1 {
 }
 form {
   display: inline-block;
-  margin-left: 10px;
   padding-left: 10px;
   padding-top: 2px;
   text-align: left;
@@ -46,12 +45,12 @@ li {
   text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
   font-size: 22px;
   font-weight: bold;
-  margin-left: -30px;
   padding-top: 15px;
   padding-left: 10px;
   width: 300px;
   height: 60px;
   border: 1px solid black;
+  margin-right: 40px;
 }
 li:hover {
   background-color: lightgray;
