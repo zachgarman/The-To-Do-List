@@ -16,20 +16,27 @@
       <h1>The To Do List</h1>
     </div>
 
-    <div class="container col-xs-12" id="add-item">
-      <form>
-        <label for="listItem">Add Item:</label>
-        <input type="text" name="listItem" id="listItem" />
-      </form>
+    <div class="container col-xs-12 display">
+      <table>
+        <thead>
+          <tr>
+            <td>
+              <form>
+                <input type="text" name="listItem" id="listItem" placeholder="Add a new task"/>
+              </form>
+            </td>
+          </tr>
+        </thead>
+        <tbody id="list-items">
+          <tr><td>To Do Item</td></tr>
+          <tr><td>Another To Do Item</td></tr>
+          <tr><td>One More Item</td></tr>
+        </tbody>
+      </table>
+
     </div>
 
-    <div class="container col-xs-12" id="list-items">
-      <ul id="todos">
-        <li>To Do Item</li>
-        <li>Another To Do Item</li>
-        <li>One more Item</li>
-      </ul>
-    </div>
+
 
 
 

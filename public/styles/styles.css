@@ -3,44 +3,47 @@ h1 {
   text-align: center;
   margin: 40px;
 }
-#add-item {
-  display: block;
-  text-align: center;
-}
+
 form {
   display: inline-block;
-  padding-left: 10px;
-  padding-top: 2px;
   text-align: left;
-  width: 300px;
-  height: 60px;
-  border: 1px solid blue;
-}
-label {
-  font-size: 18px;
+  padding-left:0;
 }
 input {
-  width: 280px;
-  height: 30px;
-  margin-top: -10px;
+  width: 300px;
   font-size: 22px;
   color: darkgreen;
-  text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
+  text-shadow: 1px 1px 2px rgba(0, 0, 120, 1);
   font-weight:bold;
+  padding-left: 10px;
+  margin-left: -10px;
+  border: none;
+  margin-top: -30px;
 }
-#list-items {
-  text-align: center;
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
 }
-#list-items ul {
-  display: inline-block;
-  text-align: left;
-  width: 300px
-  border: 1px solid blue;
+::-moz-placeholder { /* Firefox 19+ */
+  color: white;
 }
-ul {
-  list-style-type: none;
+:-ms-input-placeholder { /* IE 10+ */
+  color: white;
 }
-li {
+:-moz-placeholder { /* Firefox 18- */
+  color: white;
+}
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+thead, input {
+  background-color: gray;
+  height: 60px;
+}
+thead:hover, input:hover{
+  background-color: lightgray;
+}
+td {
   color: darkslategray;
   text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
   font-size: 22px;
@@ -52,7 +55,10 @@ li {
   border: 1px solid black;
   margin-right: 40px;
 }
-li:hover {
+td:hover {
   background-color: lightgray;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
+}
+.true {
+  background-color: tan;
 }

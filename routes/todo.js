@@ -16,13 +16,12 @@ router.get('/', function (req, res) {
         return;
       }
 
-      client.query('SELECT * FROM todos;', function (err, result) {
+      client.query('SELECT * FROM todos ORDER BY crossed_off, LOWER(list_item);', function (err, result) {
         if (err) {
           console.log('Error querying DB', err);
           res.sendStatus(500);
           return;
         }
-        console.log(result.rows);
         res.send(result.rows);
       });
     } finally {
@@ -51,6 +50,39 @@ router.post('/', function(req, res) {
         }
         console.log(result.rows);
         res.send(result.rows);
+      });
+    } finally {
+      done();
+    }
+  });
+});
+
+router.put('/update', function(req, res) {
+  pool.connect(function(err, client, done) {
+    try {
+      if (err) {
+        console.log('Error connecting to DB', err);
+        res.sendStatus(500);
+        return;
+      }
+      // Incoming req.body.crossed is a string representation of the
+      // current state of the td, but a boolean is needed.  boolean
+      // is assigned opposite value of current condition.
+      if (req.body.crossed == 'true') {
+        req.body.crossed = false;
+      } else {
+        req.body.crossed = true;
+      }
+
+      client.query('UPDATE todos SET crossed_off=$1 WHERE id=$2;',
+      [req.body.crossed, req.body.id],
+      function(err, result) {
+        if (err) {
+          console.log('Error querying DB', err);
+          res.sendStatus(500);
+          return;
+        }
+        res.sendStatus(200);
       });
     } finally {
       done();
