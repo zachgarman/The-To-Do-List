@@ -47,15 +47,25 @@ function addItem(event) {
     type: 'POST',
     url: '/todo',
     data: newTask,
-    success: makeList
+    success: newItem
   });
 }
+
+function newItem (response) {
+  var crossed = false;
+  var id = response[0].id;
+  var task = response[0].list_item;
+  var $item = $('<div class="list-item ' + crossed + '" id="' + id + '"><p>' + task + '</p></div>').hide();
+  var $deleteButton = $('<button class="delete">X</button>');
+  $deleteButton.data('id', id);
+  $item.append($deleteButton);
+  $item.prependTo('#list').slideToggle();
+}
 // Sends the information to the server to show that a task has been completed
-// Then makes an ajax call to get the updated information and runs makeList to
-// reflect the changes.
+// Then makes an ajax call to get the updated information and runs traverseItem
+// to reflect the changes, without reloading all elements.
 function crossOff(event) {
   event.preventDefault();
-  console.log('this is',$(this));
   var task = $(this).data('task');
   var id = $(this).attr('id');
   var crossed = $(this).attr('class').split(' ').pop();
@@ -63,30 +73,18 @@ function crossOff(event) {
     'id': id,
     'crossed': crossed
   };
-  // This allows a strikethrough to be added or removed whenever a task
-  // is completed or moved back into incomplete status
-  if (crossed == "true") {
-    $(this).removeClass('true');
-    $(this).addClass('false');
-    $(this).children('p').replaceWith('<p>' + task + '</p>')
-  } else {
-    $(this).addClass('true');
-    $(this).removeClass('false');
-    $(this).children('p').replaceWith('<p><s>' + task + '</s></p>')
-  }
 
   $.ajax({
     type: 'PUT',
     url: '/todo/update',
     data: putObj,
-    success: traverseItem(id, crossed)
+    success: traverseItem(id, crossed, task)
   });
 }
 // Allows user to delete an item and have it removed from the DB
 // banishItem is run to reflect the changes.
 function deleteItem() {
   var id = $(this).data('id');
-  console.log('id for delete button', id);
   if (confirm('Do you seriously want to delete this item?')) {
     $.ajax({
       type: 'DELETE',
@@ -103,9 +101,22 @@ function banishItem(id) {
 }
 // This slideToggles a div, then moves it to the bottom or top of the list
 // depending on whether it is now complete.
-function traverseItem(id, crossed) {
+function traverseItem(id, crossed, task) {
   var $div = $('#list').children('#' + id)
   $div.slideToggle('slow', function() {
+    // This allows a strikethrough to be added or removed whenever a task
+    // is completed or moved back into incomplete status.  Change made here
+    // so that you cannot see the changes.
+    if (crossed == 'true') {
+      $(this).removeClass('true');
+      $(this).addClass('false');
+      $(this).children('p').replaceWith('<p>' + task + '</p>')
+    } else {
+      $(this).addClass('true');
+      $(this).removeClass('false');
+      $(this).children('p').replaceWith('<p><s>' + task + '</s></p>')
+    }
+    // Move completed items to the bottom, incomplete to the top of the list.
     if (crossed == 'true') {
       $('#list').prepend($div);
     } else {

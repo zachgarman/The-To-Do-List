@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
       }
 
       client.query('INSERT INTO todos (list_item, crossed_off) ' +
-      'VALUES ($1, $2);',
+      'VALUES ($1, $2) RETURNING *;',
       [req.body.listItem, req.body.crossedOff],
       function(err, result) {
         if (err) {
