@@ -28,10 +28,11 @@ function appendList(response) {
     var $div;
     if (crossed) {
       var $div = $('<div></div>');
-      $div = $('<div class="list-item ' + crossed + '" id="' + id + '"><s>' + task + '</s></div>');
+      $div = $('<div class="list-item ' + crossed + '" id="' + id + '"><p><s>' + task + '</s></p></div>');
     } else {
-      $div = $('<div class="list-item ' + crossed + '" id="' + id + '">' + task + '</div>');
+      $div = $('<div class="list-item ' + crossed + '" id="' + id + '"><p>' + task + '</p></div>');
     }
+    $div.data('task', task);
     $div.append($deleteButton);
     $('#list').append($div);
   });
@@ -52,23 +53,36 @@ function addItem(event) {
 // Sends the information to the server to show that a task has been completed
 // Then makes an ajax call to get the updated information and runs makeList to
 // reflect the changes.
-function crossOff() {
+function crossOff(event) {
+  event.preventDefault();
   console.log('this is',$(this));
+  var task = $(this).data('task');
   var id = $(this).attr('id');
   var crossed = $(this).attr('class').split(' ').pop();
   var putObj = {
     'id': id,
     'crossed': crossed
   };
+
+  if (crossed == "true") {
+    $(this).removeClass('true');
+    $(this).addClass('false');
+    $(this).children('p').replaceWith('<p>' + task + '</p>')
+  } else {
+    $(this).addClass('true');
+    $(this).removeClass('false');
+    $(this).children('p').replaceWith('<p><s>' + task + '</s></p>')
+  }
+
   $.ajax({
     type: 'PUT',
     url: '/todo/update',
     data: putObj,
-    success: makeList
+    success: traverseItem(id, crossed)
   });
 }
 // Allows user to delete an item and have it removed from the DB
-// makeList is run to reflect the changes.
+// banishItem is run to reflect the changes.
 function deleteItem() {
   var id = $(this).data('id');
   console.log('id for delete button', id);
@@ -76,9 +90,26 @@ function deleteItem() {
     $.ajax({
       type: 'DELETE',
       url: '/todo/' + id,
-      success: makeList
+      success: banishItem(id)
     });
   }
   // returning false to stop bubbling where crossOff() would also run.
   return false;
+}
+// This is run whenever an item is deleted in order to hide the item in style.
+function banishItem(id) {
+  $('#list').children('#' + id).slideToggle('slow');
+}
+// This slideToggles a div, then moves it to the bottom of the list.
+function traverseItem(id, crossed) {
+  var $div = $('#list').children('#' + id)
+  $div.slideToggle('slow', function() {
+    if (crossed == 'true') {
+      $('#list').prepend($div);
+
+    } else {
+      $('#list').append($div);
+    }
+    $div.slideToggle();
+  });
 }
