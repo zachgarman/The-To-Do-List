@@ -62,3 +62,26 @@ td:hover {
 .true {
   background-color: tan;
 }
+.delete {
+  height: 40px;
+  width: 40px;
+  margin-left: -50px;
+  margin-top: 10px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  background: transparent;
+  font-size: 24px;
+  color: lightgray;
+  transition: .3s;
+}
+.delete:hover {
+  margin-left: -56px;
+  margin-top: 4px;
+  height: 52px;
+  width: 52px;
+  font-weight: bold;
+  font-size: 30px;
+  background-color: pink;
+  color: red;
+  border: 2px solid red;
+}

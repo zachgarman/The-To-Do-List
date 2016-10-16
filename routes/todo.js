@@ -67,7 +67,8 @@ router.put('/update', function(req, res) {
       }
       // Incoming req.body.crossed is a string representation of the
       // current state of the td, but a boolean is needed.  boolean
-      // is assigned opposite value of current condition.
+      // is assigned opposite value of current condition because that is what
+      // we are changing it into.
       if (req.body.crossed == 'true') {
         req.body.crossed = false;
       } else {
@@ -79,6 +80,30 @@ router.put('/update', function(req, res) {
       function(err, result) {
         if (err) {
           console.log('Error querying DB', err);
+          res.sendStatus(500);
+          return;
+        }
+        res.sendStatus(200);
+      });
+    } finally {
+      done();
+    }
+  });
+});
+
+router.delete('/:id', function(req, res) {
+  var id = req.params.id;
+  pool.connect(function(err, client, done) {
+    try {
+      if (err) {
+        console.log('Error connecting to the DB', err);
+        res.sendStatus(500);
+        return;
+      }
+
+      client.query('DELETE FROM todos WHERE id = $1;', [id], function(err, result) {
+        if (err) {
+          console.log('Error querying the DB', err);
           res.sendStatus(500);
           return;
         }
