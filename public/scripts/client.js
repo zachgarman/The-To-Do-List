@@ -57,6 +57,7 @@ function newItem (response) {
   var task = response[0].list_item;
   var $item = $('<div class="list-item ' + crossed + '" id="' + id + '"><p>' + task + '</p></div>').hide();
   var $deleteButton = $('<button class="delete">X</button>');
+  $item.data('task', task);
   $deleteButton.data('id', id);
   $item.append($deleteButton);
   $item.prependTo('#list').slideToggle();
@@ -103,6 +104,7 @@ function banishItem(id) {
 // depending on whether it is now complete.
 function traverseItem(id, crossed, task) {
   var $div = $('#list').children('#' + id)
+  console.log(task);
   $div.slideToggle('slow', function() {
     // This allows a strikethrough to be added or removed whenever a task
     // is completed or moved back into incomplete status.  Change made here
