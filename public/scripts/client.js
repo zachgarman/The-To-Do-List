@@ -63,7 +63,8 @@ function crossOff(event) {
     'id': id,
     'crossed': crossed
   };
-
+  // This allows a strikethrough to be added or removed whenever a task
+  // is completed or moved back into incomplete status
   if (crossed == "true") {
     $(this).removeClass('true');
     $(this).addClass('false');
@@ -100,13 +101,13 @@ function deleteItem() {
 function banishItem(id) {
   $('#list').children('#' + id).slideToggle('slow');
 }
-// This slideToggles a div, then moves it to the bottom of the list.
+// This slideToggles a div, then moves it to the bottom or top of the list
+// depending on whether it is now complete.
 function traverseItem(id, crossed) {
   var $div = $('#list').children('#' + id)
   $div.slideToggle('slow', function() {
     if (crossed == 'true') {
       $('#list').prepend($div);
-
     } else {
       $('#list').append($div);
     }

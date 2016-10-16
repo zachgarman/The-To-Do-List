@@ -1,3 +1,10 @@
+body {
+  background-image: url('/assets/images/background.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Open Sans', sans-serif;
+}
 h1 {
   color: gray;
   text-align: center;
@@ -13,21 +20,23 @@ h1 {
 .add-item {
   display: inline-block;
   background-color: gray;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 .add-item:hover, input:hover {
-  background-color: lightgray;
+  background-color: dimgray;
 }
 .add-item, .list-item {
   width: 450px;
   height: 60px;
   border: 1px solid black;
-
+  border-right: 5px solid black;
 }
 input {
   width: 390px;
   font-size: 22px;
-  color: navy;
-  text-shadow: 1px 1px 2px rgba(0, 0, 120, 1);
+  color: midnightblue;
+  text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
   font-weight:bold;
   padding-left: 10px;
   margin-top: 15px;
@@ -36,20 +45,30 @@ input {
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: white;
+  text-shadow: 1px 1px 2px rgba(0 , 0, 120, 1);
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: white;
+  text-shadow: 1px 1px 2px rgba(0 , 0, 120, 1);
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: white;
+  text-shadow: 1px 1px 2px rgba(0 , 0, 120, 1);
 }
 :-moz-placeholder { /* Firefox 18- */
   color: white;
+  text-shadow: 1px 1px 2px rgba(0 , 0, 120, 1);
+}
+.list-item:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom: 5px solid black;
 }
 .list-item {
+  background: rgba(255, 255, 255, .6);
   text-align: left;
   margin: 0 auto;
-  color: darkslategray;
+  color: navy;
   text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
   font-weight: bold;
   font-size: 22px;
@@ -58,22 +77,29 @@ input {
 }
 .list-item:hover {
   background-color: lightgray;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
+  text-shadow: 1px 1px 2px rgb(255, 255, 255);
 }
 .true {
-  background-color: tan;
+  background-color: #D96458;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(0, 20, 20);
+}
+.true:hover {
+  color: #D96458;
+  text-shadow: 1px 1px 2px rgb(0, 20, 20);
+  background-color: slategray;
 }
 .delete {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  border: 1px solid gray;
+  border: 1px solid #aaa;
   background: transparent;
   float:right;
   margin-right: 15px;
   margin-top: -6px;
   font-size: 24px;
-  color: gray;
+  color: #aaa;
   transition: .3s;
 }
 .delete:hover {
@@ -83,9 +109,9 @@ input {
   margin-right: 8px;
   margin-top: -12px;
   font-size: 30px;
-  background-color: orange;
-  color: red;
-  border: 4px solid red;
+  background: rgb(252, 255, 20);
+  color: rgb(210, 0, 0);
+  border: 4px solid rgb(210, 0, 0);
 }
 p {
   display: inline-block;
