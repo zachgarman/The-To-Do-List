@@ -4,7 +4,7 @@ $(function() {
   // Listeners for adding, completing, and deleteing a task
   $('form').on('submit', addItem);
   $('#list').on('click', '.list-item', crossOff);
-  //$('.list-item').on('click', 'button', deleteItem);
+  $('#list').on('click', 'button', deleteItem);
 });
 // Empties the to do list and makes an ajax call to get all list items
 function makeList() {
@@ -53,13 +53,13 @@ function addItem(event) {
 // Then makes an ajax call to get the updated information and runs makeList to
 // reflect the changes.
 function crossOff() {
+  console.log('this is',$(this));
   var id = $(this).attr('id');
   var crossed = $(this).attr('class').split(' ').pop();
   var putObj = {
     'id': id,
     'crossed': crossed
   };
-  console.log('putObj', putObj);
   $.ajax({
     type: 'PUT',
     url: '/todo/update',
@@ -71,13 +71,14 @@ function crossOff() {
 // makeList is run to reflect the changes.
 function deleteItem() {
   var id = $(this).data('id');
+  console.log('id for delete button', id);
   if (confirm('Do you seriously want to delete this item?')) {
-    setTimeout(function() {
-      $.ajax({
-        type: 'DELETE',
-        url: '/todo/' + id,
-        success: makeList
-      });
-    }, 1000);
+    $.ajax({
+      type: 'DELETE',
+      url: '/todo/' + id,
+      success: makeList
+    });
   }
+  // returning false to stop bubbling where crossOff() would also run.
+  return false;
 }
