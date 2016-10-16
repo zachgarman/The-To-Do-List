@@ -41,7 +41,6 @@ function addItem(event) {
   event.preventDefault();
   var newTask = $('input').serialize() + '&crossedOff=false';
   $('input').val('');
-  console.log(newTask);
   $.ajax({
     type: 'POST',
     url: '/todo',
@@ -70,11 +69,20 @@ function crossOff() {
 // makeList is run to reflect the changes.
 function deleteItem() {
   var id = $(this).data('id');
-  if (confirm('Do you seriously want to delete this item?')) {
-    $.ajax({
-      type: 'DELETE',
-      url: '/todo/' + id,
-      success: makeList
-    });
-  }
+  //if (confirm('Do you seriously want to delete this item?')) {
+    $(this).parent().slideToggle();
+    $(this).parent().css("display", "block");
+    setTimeout(function() {
+      $.ajax({
+        type: 'DELETE',
+        url: '/todo/' + id,
+        success: makeList
+      });
+    }, 1000);
+  //}
 }
+
+// $('tr').click(function(){
+//     $('.slideMe').slideToggle();
+//     $('.slideMe').css("display", "block")
+// });
