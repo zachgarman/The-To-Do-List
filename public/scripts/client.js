@@ -3,7 +3,7 @@ $(function() {
   makeList();
   // Listeners for adding, completing, and deleteing a task
   $('form').on('submit', addItem);
-  //$('#list').on('click', '.list-item' crossOff);
+  $('#list').on('click', '.list-item', crossOff);
   //$('.list-item').on('click', 'button', deleteItem);
 });
 // Empties the to do list and makes an ajax call to get all list items
@@ -54,11 +54,12 @@ function addItem(event) {
 // reflect the changes.
 function crossOff() {
   var id = $(this).attr('id');
-  var crossed = $(this).attr('class');
+  var crossed = $(this).attr('class').split(' ').pop();
   var putObj = {
     'id': id,
     'crossed': crossed
   };
+  console.log('putObj', putObj);
   $.ajax({
     type: 'PUT',
     url: '/todo/update',
