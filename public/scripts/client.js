@@ -3,12 +3,12 @@ $(function() {
   makeList();
   // Listeners for adding, completing, and deleteing a task
   $('form').on('submit', addItem);
-  $('#list-items').on('click', 'td', crossOff);
-  $('#list-items').on('click', 'button', deleteItem);
+  //$('#list').on('click', '.list-item' crossOff);
+  //$('.list-item').on('click', 'button', deleteItem);
 });
 // Empties the to do list and makes an ajax call to get all list items
 function makeList() {
-  $('#list-items').empty();
+  $('#list').empty();
   $.ajax({
     type: 'GET',
     url: '/todo',
@@ -23,16 +23,17 @@ function appendList(response) {
     var id = item.id;
     var task = item.list_item;
     var crossed = item.crossed_off;
-    var $tr = $('<tr></tr>');
     var $deleteButton = $('<button class="delete">X</button>');
     $deleteButton.data('id', id);
+    var $div;
     if (crossed) {
-      $tr.append('<td class="' + crossed + '" id="' + id + '"><s>' + task + '</s></td>');
+      var $div = $('<div></div>');
+      $div = $('<div class="list-item ' + crossed + '" id="' + id + '"><s>' + task + '</s></div>');
     } else {
-      $tr.append('<td class="' + crossed + '" id="' + id + '">' + task + '</td>');
+      $div = $('<div class="list-item ' + crossed + '" id="' + id + '">' + task + '</div>');
     }
-    $tr.append($deleteButton);
-    $('#list-items').append($tr);
+    $div.append($deleteButton);
+    $('#list').append($div);
   });
 }
 // Takes the user input and sends it in a ajax call to the server
@@ -69,9 +70,7 @@ function crossOff() {
 // makeList is run to reflect the changes.
 function deleteItem() {
   var id = $(this).data('id');
-  //if (confirm('Do you seriously want to delete this item?')) {
-    $(this).parent().slideToggle();
-    $(this).parent().css("display", "block");
+  if (confirm('Do you seriously want to delete this item?')) {
     setTimeout(function() {
       $.ajax({
         type: 'DELETE',
@@ -79,10 +78,5 @@ function deleteItem() {
         success: makeList
       });
     }, 1000);
-  //}
+  }
 }
-
-// $('tr').click(function(){
-//     $('.slideMe').slideToggle();
-//     $('.slideMe').css("display", "block")
-// });

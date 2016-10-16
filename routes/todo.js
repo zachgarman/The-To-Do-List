@@ -48,7 +48,6 @@ router.post('/', function(req, res) {
           res.sendStatus(500);
           return;
         }
-        console.log(result.rows);
         res.send(result.rows);
       });
     } finally {

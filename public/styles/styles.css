@@ -3,22 +3,29 @@ h1 {
   text-align: center;
   margin: 40px;
 }
-
-form {
+.display {
+  text-align: center;
+}
+.add-item {
+  width: 400px;
+  height: 60px;
   display: inline-block;
-  text-align: left;
-  padding-left:0;
+  border: 1px solid black;
+  background-color: gray;
+}
+.add-item:hover, input:hover{
+  background-color: lightgray;
 }
 input {
-  width: 300px;
+  width: 390px;
   font-size: 22px;
-  color: darkgreen;
+  color: navy;
   text-shadow: 1px 1px 2px rgba(0, 0, 120, 1);
   font-weight:bold;
   padding-left: 10px;
-  margin-left: -10px;
+  margin-top: 15px;
   border: none;
-  margin-top: -30px;
+  background: transparent;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: white;
@@ -32,30 +39,20 @@ input {
 :-moz-placeholder { /* Firefox 18- */
   color: white;
 }
-table {
-  margin-left: auto;
-  margin-right: auto;
-}
-thead, input {
-  background-color: gray;
-  height: 60px;
-}
-thead:hover, input:hover{
-  background-color: lightgray;
-}
-td {
-  color: darkslategray;
-  text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
-  font-size: 22px;
-  font-weight: bold;
-  padding-top: 15px;
-  padding-left: 10px;
-  width: 300px;
+.list-item {
+  text-align: left;
+  margin: 0 auto;
+  width: 400px;
   height: 60px;
   border: 1px solid black;
-  margin-right: 40px;
+  color: darkslategray;
+  text-shadow: 1px 1px 2px rgba(0, 0, 120, .6);
+  font-weight: bold;
+  font-size: 22px;
+  padding-top: 15px;
+  padding-left: 10px;
 }
-td:hover {
+.list-item:hover {
   background-color: lightgray;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
 }
@@ -65,23 +62,24 @@ td:hover {
 .delete {
   height: 40px;
   width: 40px;
-  margin-left: -50px;
-  margin-top: 10px;
   border-radius: 50%;
-  border: 1px solid lightgray;
+  border: 1px solid gray;
   background: transparent;
+  float:right;
+  margin-right: 15px;
+  margin-top: -6px;
   font-size: 24px;
-  color: lightgray;
+  color: gray;
   transition: .3s;
 }
 .delete:hover {
-  margin-left: -56px;
-  margin-top: 4px;
   height: 52px;
   width: 52px;
   font-weight: bold;
+  margin-right: 8px;
+  margin-top: -12px;
   font-size: 30px;
-  background-color: pink;
+  background-color: orange;
   color: red;
-  border: 2px solid red;
+  border: 4px solid red;
 }
