@@ -3,7 +3,7 @@ var pg = require('pg');
 
 var config = {
   database: 'todolist'
-}
+};
 
 var pool = new pg.Pool(config);
 
