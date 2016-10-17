@@ -98,13 +98,16 @@ function deleteItem() {
 }
 // This is run whenever an item is deleted in order to hide the item in style.
 function banishItem(id) {
-  $('#list').children('#' + id).slideToggle('slow');
+  var element = $('#list').children('#' + id);
+  element.slideToggle('slow', function() {
+    element.remove();
+  });
+
 }
 // This slideToggles a div, then moves it to the bottom or top of the list
 // depending on whether it is now complete.
 function traverseItem(id, crossed, task) {
   var $div = $('#list').children('#' + id)
-  console.log(task);
   $div.slideToggle('slow', function() {
     // This allows a strikethrough to be added or removed whenever a task
     // is completed or moved back into incomplete status.  Change made here
